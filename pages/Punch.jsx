@@ -73,7 +73,7 @@ const Punch = ({ navigation, route }) => {
         }, 100);
 
         (async () => {
-            const res = pb.collection('punch').update(id, {
+            const res = pb.collection('punch').update(punchdata[0].id, {
                 punch_count : (Number(count) + 1)
             }).then(async (res) => {
                 if (res) {
