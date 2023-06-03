@@ -2,40 +2,52 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     Title:{
-        fontSize : 50,
+        fontSize : 40,
         fontWeight : 800,
-        marginBottom: 10,
+        margin: 10,
         color: '#E84545',
         alignSelf: 'center',
         letterSpacing:9
     },
+    Home : {
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        flex: 1
+    },
+    cardlogin: {
+        padding: 20,
+        paddingLeft: 20,
+        paddingRight: 20,
+        // width: 350,
+        // height: 360,
+        // width: '100%',
+        // height: '60%',
+        backgroundColor: '#903749',
+        borderRadius: 25,
+        gap: 10
+    },
     subTitle:{
-        fontSize: 32,
-        fontWeight: 600,
-        marginBottom: 80,
+        fontSize: 22,
+        fontWeight: 400,
+        marginBottom: 20,
         alignItems: 'center',
-        color: '#E84545',
+        color: '#FFF',
         alignSelf: 'center'
     },
     textuser: {
-        paddingLeft: 20,
+        // paddingLeft: 20,
         fontSize: 18,
         color: '#fff',
-        paddingBottom:12,
-        marginTop:20
+        // marginTop:20
+        // backgroundColor: 'red'
     },
     areatext: {
-        // padding: 12,
-        // paddingBottom: 0,
-        // borderWidth: 2,
-        // borderRadius: 10,
-        // borderColor: '#FFF',
-        // paddingTop: 20
         backgroundColor: '#FFF',
         padding: 10,
         borderRadius: 10,
-        borderWidth: 2,
+        borderWidth: 0.8
     },
+    
     ItemList : {
         margin: 10,
         backgroundColor : '#fff',
@@ -59,5 +71,17 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
+    FooterMain : {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    FooterItems: {
+        alignContent: 'center',
+        alignItems: 'center',
+        bottom: 30,
+        backgroundColor: '#2B2E4A',
+        padding: 10,
+        borderRadius: 20
+    }
 
 });

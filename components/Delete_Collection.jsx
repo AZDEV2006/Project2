@@ -5,7 +5,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import pb from "../serve/pbconnection";
-const Profile_Collection = ({ navigation }) => {
+const Delete_Collection = ({ navigation }) => {
     // const [clipboard, setclipboard] = React.useState('');
     const dispatch = useDispatch();
     const App = useSelector(state => state.App);
@@ -16,10 +16,21 @@ const Profile_Collection = ({ navigation }) => {
         navigation.navigate('Punch', { id })
     }
 
-    const handleshare = (id) => {
+    const handleDelete = (id) => {
         // console.log(id);
-        Clipboard.setString(`${id}`)
-        Alert.alert('System', `Copied Id for share ${id}`)
+
+        (async () => {
+            const res = await pb.collection('collection').delete(id);
+
+            if (res) {
+                Alert.alert('System', `Delete Success ${id}`)
+                
+                const res = await pb.collection('collection').getFullList({
+                    filter: `id_user = "${JSON.parse(App.userdata).id}"`
+                });
+                setListdata(res)
+            }
+        })();       
     }
 
     useEffect(() => {
@@ -53,13 +64,10 @@ const Profile_Collection = ({ navigation }) => {
                                 <Text style={{ fontSize: 25 }}>
                                     {data.collection_name}
                                 </Text>
-                                <Text style={{ fontSize: 15 }}>
-                                    จำนวนโดนต่อย Nan ครั้ง
-                                </Text>
                             </View>
                         </View>
-                        <TouchableOpacity style={styles.ButtShare} onPress={() => handleshare(data.id)}>
-                            <Ionicons name="return-up-forward-outline" size={40} />
+                        <TouchableOpacity style={styles.ButtShare} onPress={() => handleDelete(data.id)}>
+                            <Ionicons name="trash-outline" size= {40}/>
                         </TouchableOpacity>
                     </TouchableOpacity>
                     </>
@@ -70,4 +78,4 @@ const Profile_Collection = ({ navigation }) => {
     )
 }
 
-export default Profile_Collection;
+export default Delete_Collection;
