@@ -22,40 +22,74 @@ const Punch = ({ navigation, route }) => {
     React.useEffect(() => {
         (async () => {
 
-            const user = await pb.collection('punch').getFullList({
-                filter : `current_id = '${route.params.id}'`
-            })
+            // const user = await pb.collection('punch').getFullList({
+            //     filter : `current_id = '${route.params.id}'`
+            // })
             
-            if (user.length == 0) {
-                const insert = await pb.collection('punch').create({
-                    current_id : route.params.id,
-                    id_users : JSON.parse(App.userdata).id,
-                    punch_count : 0,
-                    username : JSON.parse(App.userdata).username
-                })
+            // if (user.length == 0) {
+            //     const insert = await pb.collection('punch').create({
+            //         current_id : route.params.id,
+            //         id_users : JSON.parse(App.userdata).id,
+            //         punch_count : 0,
+            //         username : JSON.parse(App.userdata).username
+            //     })
 
-                if (insert.length >= 1) {
-                    const resss = await pb.collection('collection').getFullList({
-                        filter: `id = "${route.params.id}"`
-                    });
-                    setdataitem(resss)
-                    const res = await pb.collection('punch').getFullList({
-                        filter : `current_id = '${route.params.id}'`
-                    })
+            //     if (insert.length >= 1) {
+            //         const resss = await pb.collection('collection').getFullList({
+            //             filter: `id = "${route.params.id}"`
+            //         });
+            //         setdataitem(resss)
+            //         const res = await pb.collection('punch').getFullList({
+            //             filter : `current_id = '${route.params.id}'`
+            //         })
                     
-                    setpunchdata(res);
-                }
-            } else {
+            //         setpunchdata(res);
+            //     }
+            // } else {
+                
                 const resss = await pb.collection('collection').getFullList({
                     filter: `id = "${route.params.id}"`
                 });
                 setdataitem(resss)
                 const res = await pb.collection('punch').getFullList({
-                    filter : `current_id = '${route.params.id}'`
+                    filter : `current_id = '${route.params.id}'  && id_users = '${JSON.parse(App.userdata).id}'`
                 })
+
+                if (res.length == 0) {
+                    const insert = await pb.collection('punch').create({
+                        current_id : route.params.id,
+                        id_users : JSON.parse(App.userdata).id,
+                        punch_count : 0,
+                        username : JSON.parse(App.userdata).username
+                    })
+    
+                    console.log(insert)
+    
+                    if (insert.length != 0) {
+                        const resss = await pb.collection('collection').getFullList({
+                            filter: `id = "${route.params.id}"`
+                        });
+                        setdataitem(resss)
+                        const res = await pb.collection('punch').getFullList({
+                            filter : `current_id = '${route.params.id}' && id_users = '${JSON.parse(App.userdata).id}'`
+                        })
+                        
+                        setpunchdata(res);
+                    }
+                } else {
+                    const resss = await pb.collection('collection').getFullList({
+                        filter: `id = "${route.params.id}"`
+                    });
+                    setdataitem(resss)
+                    const res = await pb.collection('punch').getFullList({
+                        filter : `current_id = '${route.params.id}' && id_users = '${JSON.parse(App.userdata).id}'`
+                    })
+                    
+                    setpunchdata(res);
+                }
                 
-                setpunchdata(res);
-            }
+                // console.log(res)
+            // }
         })();
     }, [])
 
@@ -73,13 +107,57 @@ const Punch = ({ navigation, route }) => {
         }, 100);
 
         (async () => {
-            const res = pb.collection('punch').update(punchdata[0].id, {
+
+            const user = await pb.collection('punch').getFullList({
+                filter : `current_id = '${route.params.id}' && id_users = '${JSON.parse(App.userdata).id}'`
+            })
+
+            console.log(user)
+            
+            if (user.length == 0) {
+                const insert = await pb.collection('punch').create({
+                    current_id : route.params.id,
+                    id_users : JSON.parse(App.userdata).id,
+                    punch_count : 0,
+                    username : JSON.parse(App.userdata).username
+                })
+
+                console.log(insert)
+
+                if (insert.length != 0) {
+                    const resss = await pb.collection('collection').getFullList({
+                        filter: `id = "${route.params.id}"`
+                    });
+                    setdataitem(resss)
+                    const res = await pb.collection('punch').getFullList({
+                        filter : `current_id = '${route.params.id}' && id_users = '${JSON.parse(App.userdata).id}'`
+                    })
+                    
+                    setpunchdata(res);
+                }
+            } else {
+                const resss = await pb.collection('collection').getFullList({
+                    filter: `id = "${route.params.id}"`
+                });
+                setdataitem(resss)
+                const res = await pb.collection('punch').getFullList({
+                    filter : `current_id = '${route.params.id}' && id_users = '${JSON.parse(App.userdata).id}'`
+                })
+                
+                setpunchdata(res);
+            }
+        })();
+        (async () => {
+            const resssss = await pb.collection('punch').getFullList({
+                filter : `current_id = '${route.params.id}' && id_users = '${JSON.parse(App.userdata).id}'`
+            })
+            const res = pb.collection('punch').update(resssss[0].id, {
                 punch_count : (Number(count) + 1)
             }).then(async (res) => {
                 if (res) {
                 
                     const res = await pb.collection('punch').getFullList({
-                        filter : `current_id = '${route.params.id}'`
+                        filter : `current_id = '${route.params.id}' && id_users = '${JSON.parse(App.userdata).id}'`
                     })
                     
                     setpunchdata(res);

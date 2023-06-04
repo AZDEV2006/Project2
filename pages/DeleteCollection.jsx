@@ -17,19 +17,21 @@ const DeleteCollection = ({ navigation }) => {
             <View style={styles.Home}>
                 {/*  style={{ backgroundColor: '', }} */}
                 <SafeAreaView>
-                    <View style={{ padding: 10 }}>
-                        <Text style={{ fontSize: 20, color: '#000', }}>
-                            Your All Collection <Text style={{ color: 'red' }}>{JSON.parse(App.userdata).username}</Text>
-                        </Text>
-                        <TextInput
-                            style = {styles.areatext}
-                            placeholder="Search"
-                            onChangeText={Setsearch}
-                            value={search}
-                        />
-                    </View>
-                    <ScrollView>
-                        <Delete_Collection navigation={navigation} />
+                    <ScrollView style={{ height: '90%' }}>
+                        <View style={{ padding: 10 }}>
+                            <Text style={{ fontSize: 20, color: '#000', }}>
+                                Your All Collection <Text style={{ color: 'red' }}>{JSON.parse(App.userdata).username}</Text>
+                            </Text>
+                            {/* <TextInput
+                                style = {styles.areatext}
+                                placeholder="Search"
+                                onChangeText={Setsearch}
+                                value={search}
+                            /> */}
+                        </View>
+                        <ScrollView>
+                            <Delete_Collection navigation={navigation} />
+                        </ScrollView>
                     </ScrollView>
                 </SafeAreaView>
                 

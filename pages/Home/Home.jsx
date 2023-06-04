@@ -25,26 +25,7 @@ const Home = ({ navigation }) => {
         Alert.alert("System", 'คณะผู้จัดทำไม่มีส่วนเกี่ยวข้องหากรูปของท่านเข้าข่าย PDPA')
     }, [])
     
-    
-    // const HeaderDia = () => {
-    //     return (
-    //         <>
-    //             <Dialog.Container visible={visable}>
-    //                 <Dialog.Title>Account delete</Dialog.Title>
-    //                 <Dialog.Description>
-    //                     Id from firend
-    //                 </Dialog.Description>
-    //                 <TextInput
-    //                     placeholder="Join_id"
-    //                     ref={join_id}
-    //                 />
-    //                 {/* <Dialog.Input placeholder="Join_id" ref={join_id} /> */}
-    //                 <Dialog.Button label="Cancel" onPress={() => setvisable(false)} />
-    //                 <Dialog.Button label="Join" onPress={() => console.log(join_id.current)} />
-    //             </Dialog.Container>
-    //         </>
-    //     ) 
-    // }
+
     return (
         <View style={{...styles.Home,backgroundColor: '#2B2E4A'}}>
             {/* <HeaderDia /> */}
@@ -52,6 +33,9 @@ const Home = ({ navigation }) => {
             <SafeAreaView>
                 <ScrollView style={{ height: '90%' }}>
                     <View style={{ padding: 10 }}>
+                        <Text style={{ fontSize: 15, color: '#FFF', }}>
+                            ใส่ไอดี Collection ของเพื่อนของคุณ !
+                        </Text>
                         <TextInput 
                             placeholder="Join_id"
                             onChangeText={setjoin_id}
